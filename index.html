@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070b1c">
+<meta name="description" content="奶龙 2048 —— 把两只相同的小奶龙叠在一起，合成 1024。">
+<title>奶龙 2048</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="stylesheet" href="styles.css?v=2">
+</head>
+<body>
+
+<div class="bg" aria-hidden="true"></div>
+<div class="glow" aria-hidden="true"></div>
+
+<main class="app">
+
+  <header class="hud">
+    <div class="brand">
+      <h1>奶龙 <em>2048</em></h1>
+      <p class="tagline">把两只相同的小奶龙叠在一起，看看能不能合出 <b>1024</b></p>
+    </div>
+    <div class="scores">
+      <div class="score-box">
+        <span class="label">得分</span>
+        <strong id="score" aria-live="polite">0</strong>
+      </div>
+      <div class="score-box best">
+        <span class="label">最高分</span>
+        <strong id="best">0</strong>
+      </div>
+    </div>
+  </header>
+
+  <div class="toolbar">
+    <button id="new-game" class="btn primary" type="button">新游戏</button>
+    <button id="undo" class="btn" type="button" disabled>撤销</button>
+    <button id="sound" class="btn icon" type="button" aria-pressed="true" aria-label="音效开关">🔊</button>
+    <button id="help" class="btn icon" type="button" aria-label="玩法说明">?</button>
+  </div>
+
+  <div class="board-wrap">
+    <div class="board" id="board" tabindex="0" role="application" aria-label="奶龙 2048 棋盘">
+      <div class="cells" id="cells" aria-hidden="true"></div>
+      <div class="tiles" id="tiles"></div>
+      <div class="overlay" id="overlay" hidden>
+        <div class="overlay-card">
+          <h2 id="overlay-title"></h2>
+          <p id="overlay-text"></p>
+          <div class="overlay-actions" id="overlay-actions"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <span class="keys"><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd> 或 <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span>
+    <span class="sep">·</span>
+    <span>手机直接滑动屏幕</span>
+    <span class="sep">·</span>
+    <span id="storage-note">进度自动存在本机浏览器</span>
+  </footer>
+
+</main>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <button class="modal-close" id="modal-close" type="button" aria-label="关闭">×</button>
+    <h2 id="modal-title">怎么玩</h2>
+    <ul class="rules">
+      <li><b>目标</b>：在 4×4 的格子里合出一只 <b>1024</b> 奶龙。</li>
+      <li><b>操作</b>：按方向键 / WASD，或直接滑动屏幕，所有奶龙会一起往那个方向滑。</li>
+      <li><b>合并</b>：两只<b>数字相同</b>的奶龙撞在一起，就会合体成下一档（1+1=2，2+2=4 ……）。</li>
+      <li><b>每步</b>都会随机冒出一只新的小奶龙（1 或 2）。</li>
+      <li><b>结束</b>：格子填满、且相邻再也没有相同的奶龙时，游戏结束。</li>
+      <li><b>存档</b>：分数与棋盘进度都存在浏览器 localStorage 里，关掉页面再打开会接着玩；最高分单独保存，不会被新游戏清掉。</li>
+    </ul>
+    <p class="tip">小提示：尽量把大数字压在某个角落，别让它乱跑。</p>
+  </div>
+</div>
+
+<script src="game.js?v=2"></script>
+</body>
+</html>
